@@ -1,10 +1,10 @@
-function mainLogic (allData) {
-  function shouldSendMail(data) {
+// Define shouldSendMail separately
+function shouldSendMail(data) {
   const { Expiring_On, Difference_In_Days, Lookthrough } = data;
   const today = new Date();
-  today.setHours(0, 0, 0, 0); // Normalize today's date
+  today.setHours(0, 0, 0, 0);
 
-  const expiringDate = new Date(Expiring_On.split("-").reverse().join("-")); // Convert to date format (YYYY-MM-DD)
+  const expiringDate = new Date(Expiring_On.split("-").reverse().join("-"));
   
   let startDate, endDate;
   if (Lookthrough === "before") {
@@ -19,18 +19,15 @@ function mainLogic (allData) {
       return { error: "Invalid Lookthrough value" };
   }
 
-  // Check if today is within the range or matches Expiring_On
   const sendMail = today >= startDate && today <= endDate;
-  return {sendMail};
+  return { sendMail };
 }
 
-for (const item of allData) {
-const result = shouldSendMail(item);
-
-item.send_mail = result.sendMail;
-
-}
-
-return allData.filter(item => item.send_mail === true && item.Is_Recurring === true);
-
+// Main logic (now works with eval/new Function)
+function mainLogic(allData) {
+  for (const item of allData) {
+    const result = shouldSendMail(item);
+    item.send_mail = result.sendMail;
+  }
+  return allData.filter(item => item.send_mail === true && item.Is_Recurring === true);
 }
