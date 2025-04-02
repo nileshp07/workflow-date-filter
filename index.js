@@ -30,4 +30,4 @@ item.json.send_mail = result.sendMail;
 
 }
 
-return $input.all().filter(item => item.json.send_mail === true);
+return $input.all().filter(item => item.json.send_mail === true && item.json.is_Recurring === true);
