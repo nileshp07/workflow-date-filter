@@ -31,6 +31,6 @@ item.send_mail = result.sendMail;
 
 }
 
-return allData.filter(item => item.send_mail === true && item.is_Recurring === true);
+return allData.filter(item => item.send_mail === true && item.Is_Recurring === true);
 
 }
