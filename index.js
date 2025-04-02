@@ -1,4 +1,5 @@
-function shouldSendMail(data) {
+function mainLogic (allData) {
+  function shouldSendMail(data) {
   const { Expiring_On, Difference_In_Days, Lookthrough } = data;
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Normalize today's date
@@ -23,11 +24,13 @@ function shouldSendMail(data) {
   return {sendMail};
 }
 
-for (const item of $input.all()) {
-const result = shouldSendMail(item.json);
+for (const item of allData) {
+const result = shouldSendMail(item);
 
-item.json.send_mail = result.sendMail;
+item.send_mail = result.sendMail;
 
 }
 
-return $input.all().filter(item => item.json.send_mail === true && item.json.is_Recurring === true);
+return allData.filter(item => item.send_mail === true && item.is_Recurring === true);
+
+}
